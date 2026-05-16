@@ -1,11 +1,13 @@
 # DoomWAH
 
-DOOM running as a standalone WebAssembly module, interpreted by a custom WASM runtime on Windows.
+DOOM running as a standalone WebAssembly module, interpreted by [WAH](https://github.com/lifthrasiir/wah) on Windows.
 
 The WASM guest has **zero runtime dependencies** — no WASI, no Emscripten JS glue, no libc internals.
 All I/O (file, console, display) goes through 16 clean `host_*` imports.
 
 Based on [doomgeneric](https://github.com/ozkl/doomgeneric) by ozkl.
+
+![DoomWAH running on Windows](screenshots/doomwah.png)
 
 ## Dependencies
 
@@ -13,7 +15,7 @@ Based on [doomgeneric](https://github.com/ozkl/doomgeneric) by ozkl.
 |-----------|------|-------|
 | WASM guest | [Emscripten](https://emscripten.org/) (`emcc`) | Compiles C to standalone WASM |
 | Host runtime | GCC (MINGW64) | Compiles the Win32 host |
-| WASM interpreter | [WAH](host/wah.h) | Single-header WebAssembly interpreter |
+| WASM interpreter | [WAH](https://github.com/lifthrasiir/wah) | Single-header WebAssembly interpreter |
 | Game data | `doom1.wad` | Shareware WAD (not included) |
 
 ## Building
@@ -46,7 +48,7 @@ Or directly:
 
 ```
 ┌─────────────────────────┐     ┌──────────────────────────┐
-│      WASM Guest         │     │      Win32 Host           │
+│      WASM Guest         │     │      Win32 Host          │
 │  (doomgeneric + doom)   │     │   (host/main.c + wah.h)  │
 │                         │     │                          │
 │  fopen ──→ host_fopen ──┼────►│  fd_alloc + real fopen   │
